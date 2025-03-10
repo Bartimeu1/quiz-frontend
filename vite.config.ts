@@ -49,5 +49,10 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     base: './',
+    css: {
+      modules: {
+        localsConvention: 'camelCaseOnly',
+      },
+    },
   };
 });
