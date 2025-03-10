@@ -1,0 +1,54 @@
+{
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "simple-import-sort", "@typescript-eslint"],
+  "settings": {
+    "react": {
+      "version": "18.2.0"
+    },
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@root", "./src"],
+          ["@components", "./src/components"],
+          ["@services", "./src/services"],
+          ["@constants", "./src/constants"],
+          ["@pages", "./src/pages"],
+          ["@middlewares", "./src/middlewares"],
+          ["@utils", "./src/utils"],
+          ["@assets", "./src/assets"]
+        ]
+      }
+    }
+  },
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "eol-last": ["error", "always"],
+    "@typescript-eslint/no-unused-vars": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [["^react"], ["^antd"], ["^@?\\w"], ["@/(.*)"], ["^[./]"]]
+      }
+    ]
+  }
+}
