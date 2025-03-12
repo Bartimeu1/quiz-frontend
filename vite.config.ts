@@ -24,6 +24,8 @@ export default defineConfig(({ mode }) => {
         '@services': path.resolve(__dirname, './src/services'),
         '@store': path.resolve(__dirname, './src/store'),
         '@assets': path.resolve(__dirname, './src/assets'),
+        '@styles': path.resolve(__dirname, './src/styles'),
+        '@hooks': path.resolve(__dirname, './src/hooks'),
       },
     },
     define: envWithProcessPrefix,
