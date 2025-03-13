@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './constants/routes';
+import { ToastContainer } from 'react-toastify';
 
 export const App = () => {
   return (
@@ -9,6 +10,7 @@ export const App = () => {
           <Route key={path} path={path} element={element} />
         ))}
       </Routes>
+      <ToastContainer position="bottom-left" />
     </BrowserRouter>
   );
 };

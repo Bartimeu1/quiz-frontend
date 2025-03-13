@@ -1,0 +1,34 @@
+@use '@styles/variables' as v;
+
+.inputField {
+  width: 100%;
+  position: relative;
+}
+
+.withError {
+  border: 2px solid v.$color-red !important;
+}
+
+.inputElement {
+  border-radius: v.$border-radius-15;
+  border: 2px solid v.$color-orange;
+  width: 100%;
+  padding: 20px 0 20px 20px;
+  outline: none;
+  font-size: v.$font-size-15;
+}
+
+.passwordButton {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translate(0, -40%);
+}
+
+.validationText {
+  position: absolute;
+  bottom: -15px;
+  left: 20px;
+  color: v.$color-red;
+  font-size: v.$font-size-12;
+}
