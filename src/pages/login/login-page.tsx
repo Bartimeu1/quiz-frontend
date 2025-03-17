@@ -1,42 +1,43 @@
 import { useForm, Controller } from 'react-hook-form';
-
 import { InputField } from '@components/input-field';
-import { RegisterFormValues } from './types';
+
+import { LoginFormValues } from './types';
 import { inputControllers, validationSchema } from './config';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '@constants/routes';
-import { setCredentials } from '@store/features/auth-slice';
 import { useAppDispatch } from '@hooks/use-app-dispatch';
+import { setCredentials } from '@store/features/auth-slice';
 
-import { errorText, successfulRegisterText } from '@constants/text';
-import { useRegisterMutation } from '@store/api/auth-api';
+import { errorText, successfulLoginText } from '@constants/text';
+import { useLoginMutation } from '@store/api/auth-api';
 
-import styles from './registration-page.module.scss';
+import styles from './login-page.module.scss';
 
-export const RegistrationPage = () => {
+export const LoginPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [register] = useRegisterMutation();
+
+  const [login] = useLoginMutation();
 
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<RegisterFormValues>({
+  } = useForm<LoginFormValues>({
     mode: 'onChange',
     resolver: yupResolver(validationSchema),
   });
 
-  const handleFormSubmit = async (data: RegisterFormValues) => {
-    const { userName, email, password } = data;
+  const handleFormSubmit = async (data: LoginFormValues) => {
+    const { identifier, password } = data;
 
-    register({ email, password, name: userName })
+    login({ userNameOrEmail: identifier, password })
       .unwrap()
       .then((credentials) => {
         dispatch(setCredentials(credentials));
-        toast.success(successfulRegisterText);
+        toast.success(successfulLoginText);
         navigate(routes.base);
       })
       .catch((error) => {
@@ -47,11 +48,11 @@ export const RegistrationPage = () => {
   };
 
   return (
-    <main className={styles.registerPage}>
-      <h1 className={styles.title}>Create an account</h1>
+    <main className={styles.loginPage}>
+      <h1 className={styles.title}>Log In</h1>
       <form
         onSubmit={handleSubmit(handleFormSubmit)}
-        className={styles.registerForm}
+        className={styles.loginForm}
       >
         {inputControllers.map(
           ({ name, type, placeholder, isPasswordField }) => (

@@ -1,6 +1,6 @@
 @use '@styles/variables' as v;
 
-.registerPage {
+.loginPage {
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -21,7 +21,7 @@
   margin-bottom: 20px;
 }
 
-.registerForm {
+.loginForm {
   width: 100%;
   max-width: 528px;
   padding: 50px 45px 30px 45px;

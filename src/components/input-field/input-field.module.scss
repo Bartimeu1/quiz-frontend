@@ -6,7 +6,7 @@
 }
 
 .withError {
-  border: 2px solid v.$color-red !important;
+  border: 2px solid v.$color-error !important;
 }
 
 .inputElement {
@@ -29,6 +29,6 @@
   position: absolute;
   bottom: -15px;
   left: 20px;
-  color: v.$color-red;
+  color: v.$color-error;
   font-size: v.$font-size-12;
 }

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useMemo } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import { PassClosed, PassOpened } from '@constants/icons';
 
@@ -28,14 +28,6 @@ export const InputField = (props: InputFieldProps) => {
   const [inputValue, setInputValue] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const inputType = useMemo(() => {
-    if (isPasswordField) {
-      return isPasswordVisible ? 'text' : 'password';
-    }
-
-    return type;
-  }, [isPasswordVisible]);
-
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
@@ -47,10 +39,18 @@ export const InputField = (props: InputFieldProps) => {
     setIsPasswordVisible((prevState) => !prevState);
   };
 
+  const getInputType = () => {
+    if (isPasswordField) {
+      return isPasswordVisible ? 'text' : 'password';
+    }
+
+    return type;
+  };
+
   return (
     <div className={classNames(styles.inputField, className)}>
       <input
-        type={inputType}
+        type={getInputType()}
         className={classNames(styles.inputElement, {
           [styles.withError]: validationText,
         })}
@@ -60,6 +60,7 @@ export const InputField = (props: InputFieldProps) => {
       />
       {isPasswordField && (
         <button
+          type="button"
           className={styles.passwordButton}
           onClick={handlePasswordVisibility}
         >
