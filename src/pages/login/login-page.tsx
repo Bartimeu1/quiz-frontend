@@ -57,6 +57,7 @@ export const LoginPage = () => {
         {inputControllers.map(
           ({ name, type, placeholder, isPasswordField }) => (
             <Controller
+              key={name}
               name={name}
               control={control}
               render={({ field: { onChange } }) => (

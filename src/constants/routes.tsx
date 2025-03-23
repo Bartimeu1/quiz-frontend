@@ -14,3 +14,5 @@ export const publicRoutes = [
   { path: routes.register, element: <RegistrationPage /> },
   { path: routes.login, element: <LoginPage /> },
 ];
+
+export const privateRoutes = [];
