@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '@constants/routes';
-import { setCredentials } from '@store/features/auth-slice';
+import { setCredentials } from '@root/store/features/auth/auth-slice';
 import { useAppDispatch } from '@hooks/use-app-dispatch';
 
 import { errorText, successfulRegisterText } from '@constants/text';
@@ -37,7 +37,7 @@ export const RegistrationPage = () => {
       .then((credentials) => {
         dispatch(setCredentials(credentials));
         toast.success(successfulRegisterText);
-        navigate(routes.base);
+        navigate(routes.home);
       })
       .catch((error) => {
         const errorMessage = error?.data?.message || errorText;

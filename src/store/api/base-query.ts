@@ -3,7 +3,7 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 import { FetchArgs, BaseQueryFn } from '@reduxjs/toolkit/query';
-import { setAccessToken, logOut } from '../features/auth-slice';
+import { setAccessToken, logOut } from '../features/auth/auth-slice';
 
 import { RootState } from '../store';
 

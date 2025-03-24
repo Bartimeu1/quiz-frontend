@@ -1,6 +1,5 @@
 import { useForm, Controller } from 'react-hook-form';
 import { InputField } from '@components/input-field';
-
 import { LoginFormValues } from './types';
 import { inputControllers, validationSchema } from './config';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,7 +7,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '@constants/routes';
 import { useAppDispatch } from '@hooks/use-app-dispatch';
-import { setCredentials } from '@store/features/auth-slice';
+import { setCredentials } from '@root/store/features/auth/auth-slice';
 
 import { errorText, successfulLoginText } from '@constants/text';
 import { useLoginMutation } from '@store/api/auth-api';
@@ -38,7 +37,7 @@ export const LoginPage = () => {
       .then((credentials) => {
         dispatch(setCredentials(credentials));
         toast.success(successfulLoginText);
-        navigate(routes.base);
+        navigate(routes.home);
       })
       .catch((error) => {
         const errorMessage = error?.data?.message || errorText;

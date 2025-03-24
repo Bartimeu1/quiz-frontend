@@ -11,7 +11,7 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 
-import { authSlice } from './features/auth-slice';
+import { authSlice } from './features/auth/auth-slice';
 import { authApi } from './api/auth-api';
 
 const persistConfig = {

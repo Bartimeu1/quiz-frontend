@@ -14,5 +14,5 @@ export const ProtectedRoute = ({ isPrivate }: ProtectedRouteProps) => {
     return accessToken ? <Outlet /> : <Navigate to={routes.welcome} />;
   }
 
-  return accessToken ? <Navigate to={routes.base} /> : <Outlet />;
+  return accessToken ? <Navigate to={routes.home} /> : <Outlet />;
 };

@@ -1,0 +1,46 @@
+@use '@styles/variables' as v;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background: v.$color-white;
+  border-radius: v.$border-radius-28;
+}
+
+.userPanel {
+  display: flex;
+  align-items: center;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.userName {
+  margin-bottom: 5px;
+  font-size: v.$font-size-18;
+}
+
+.userEmail {
+  font-size: v.$font-size-14;
+  opacity: 0.7;
+}
+
+.profileLink {
+  padding: 10px 20px;
+  background: v.$color-orange;
+  border: 1px solid v.$color-orange;
+  border-radius: v.$border-radius-15;
+  color: v.$color-white;
+  font-size: v.$font-size-18;
+  transition: 0.3s all ease-in-out;
+
+  &:hover {
+    color: v.$color-orange;
+    background: v.$color-white;
+  }
+}

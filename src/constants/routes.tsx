@@ -1,12 +1,14 @@
 import { WelcomePage } from '@pages/welcome';
 import { RegistrationPage } from '@pages/registration';
 import { LoginPage } from '@pages/login';
+import { HomePage } from '@pages/home';
 
 export const routes = {
-  base: '/',
+  home: '/',
   welcome: '/welcome',
   login: '/login',
   register: '/register',
+  profile: '/profile',
 };
 
 export const publicRoutes = [
@@ -15,4 +17,4 @@ export const publicRoutes = [
   { path: routes.login, element: <LoginPage /> },
 ];
 
-export const privateRoutes = [];
+export const privateRoutes = [{ path: routes.home, element: <HomePage /> }];

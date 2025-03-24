@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { AuthSliceState } from './types';
 
-const INITIAL_STATE = { user: null, accessToken: null };
+const INITIAL_STATE: AuthSliceState = { user: null, accessToken: null };
 
 export const authSlice = createSlice({
   name: 'auth',
