@@ -1,0 +1,7 @@
+@use '@styles/variables' as v;
+
+.homePage {
+  flex: 1;
+  border-radius: v.$border-radius-21;
+  background: v.$color-white;
+}

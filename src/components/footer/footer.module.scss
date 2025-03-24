@@ -1,0 +1,25 @@
+@use '@styles/variables' as v;
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 10px 15px;
+  margin-top: 10px;
+  background: v.$color-white;
+  border-radius: v.$border-radius-21;
+
+  & p {
+    font-size: v.$font-size-12;
+    opacity: 0.9;
+  }
+}
+
+.socialNav {
+  margin: 0 -3px 5px -3px;
+
+  & a {
+    margin: 0 3px;
+  }
+}
