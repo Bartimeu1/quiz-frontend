@@ -3,7 +3,7 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 import { FetchArgs, BaseQueryFn } from '@reduxjs/toolkit/query';
-import { setAccessToken, logOut } from '../features/auth/auth-slice';
+import { setAccessToken, clearCredentials } from '../features/auth/auth-slice';
 
 import { RootState } from '../store';
 
@@ -40,7 +40,7 @@ export const createBaseQueryWithReauth = (baseUrl: string) => {
         api.dispatch(setAccessToken(refreshResult.data));
         result = await baseQuery(args, api, extraOptions);
       } else {
-        api.dispatch(logOut());
+        api.dispatch(clearCredentials());
       }
     }
 

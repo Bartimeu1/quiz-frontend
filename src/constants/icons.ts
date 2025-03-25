@@ -1,7 +1,13 @@
-export { ReactComponent as LogoIcon } from '../assets/images/logo.svg';
 export { ReactComponent as PassClosed } from '../assets/images/passClosed.svg';
 export { ReactComponent as PassOpened } from '../assets/images/passOpened.svg';
 export { ReactComponent as FacebookIcon } from '../assets/images/facebook.svg';
 export { ReactComponent as InstagramIcon } from '../assets/images/instagram.svg';
 export { ReactComponent as LinkedinIcon } from '../assets/images/linkedin.svg';
 export { ReactComponent as TwitterIcon } from '../assets/images/twitter.svg';
+export { ReactComponent as AvatarMaleFirstIcon } from '../assets/images/avatar-male-first.svg';
+export { ReactComponent as AvatarMaleSecondIcon } from '../assets/images/avatar-male-second.svg';
+export { ReactComponent as AvatarMaleThirdIcon } from '../assets/images/avatar-male-third.svg';
+export { ReactComponent as AvatarFemaleFirstIcon } from '../assets/images/avatar-female-first.svg';
+export { ReactComponent as AvatarFemaleSecondIcon } from '../assets/images/avatar-female-second.svg';
+export { ReactComponent as AvatarFemaleThirdIcon } from '../assets/images/avatar-female-third.svg';
+export { ReactComponent as StarIcon } from '../assets/images/star.svg';
