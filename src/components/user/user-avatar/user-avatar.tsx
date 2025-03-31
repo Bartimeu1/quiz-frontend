@@ -1,13 +1,27 @@
+import classNames from 'classnames';
+
 import { getAvatarById } from '@utils/get-avatar-by-id';
 
 interface UserAvatarProps {
-  avatarId: number | null;
+  avatarId: number;
   height?: string;
   width?: string;
+  className?: string;
 }
 
-export const UserAvatar = ({ avatarId, height, width }: UserAvatarProps) => {
+export const UserAvatar = ({
+  avatarId,
+  height,
+  width,
+  className,
+}: UserAvatarProps) => {
   const { icon: AvatarIcon } = getAvatarById(avatarId);
 
-  return <AvatarIcon height={height} width={width} />;
+  return (
+    <AvatarIcon
+      className={classNames(className)}
+      height={height}
+      width={width}
+    />
+  );
 };

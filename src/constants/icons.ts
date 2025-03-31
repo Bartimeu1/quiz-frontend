@@ -11,3 +11,5 @@ export { ReactComponent as AvatarFemaleFirstIcon } from '../assets/images/avatar
 export { ReactComponent as AvatarFemaleSecondIcon } from '../assets/images/avatar-female-second.svg';
 export { ReactComponent as AvatarFemaleThirdIcon } from '../assets/images/avatar-female-third.svg';
 export { ReactComponent as StarIcon } from '../assets/images/star.svg';
+export { ReactComponent as ChevronIcon } from '../assets/images/chevron.svg';
+export { ReactComponent as ApproveIcon } from '../assets/images/approve.svg';

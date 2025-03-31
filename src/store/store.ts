@@ -13,6 +13,7 @@ import {
 
 import { authSlice } from './features/auth/auth-slice';
 import { authApi } from './api/auth-api';
+import { userApi } from './api/user-api';
 
 const persistConfig = {
   key: 'root',
@@ -23,6 +24,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, rootReducer);
@@ -30,7 +32,7 @@ const persistedRootReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedRootReducer,
   middleware: (getDefaultMiddleware) => {
-    const allMiddlewares = [authApi.middleware];
+    const allMiddlewares = [authApi.middleware, userApi.middleware];
 
     return getDefaultMiddleware({
       serializableCheck: {
