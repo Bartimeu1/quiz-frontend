@@ -14,3 +14,9 @@ export interface ChangeAvatarRequest {
 export interface ChangeAvatarResponse {
   user: UserType;
 }
+
+export interface ChangePasswordRequest {
+  userId: number;
+  oldPassword: string;
+  newPassword: string;
+}

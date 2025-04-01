@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { ApproveIcon } from '@constants/icons';
 import { TabItem } from '@components/tab-item';
 import { UserAvatar } from '@components/user';
+import { ChangePasswordForm } from '@components/change-password-form';
 import { successChangeAvatarText, errorText } from '@constants/text';
 
 import { avatarsItems } from '@constants/avatars';
@@ -77,6 +78,9 @@ export const SettingsPage = () => {
               </button>
             ))}
           </div>
+        </TabItem>
+        <TabItem title="Change password">
+          <ChangePasswordForm />
         </TabItem>
       </div>
     </main>

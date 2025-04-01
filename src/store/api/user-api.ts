@@ -1,6 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { createBaseQueryWithReauth } from './base-query';
-import { UserType, ChangeAvatarRequest } from '@root/types/user';
+import {
+  UserType,
+  ChangeAvatarRequest,
+  ChangePasswordRequest,
+} from '@root/types/user';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -13,7 +17,14 @@ export const userApi = createApi({
         body: data,
       }),
     }),
+    changePassword: builder.mutation<void, ChangePasswordRequest>({
+      query: (data) => ({
+        url: '/change-password',
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useChangeAvatarMutation } = userApi;
+export const { useChangeAvatarMutation, useChangePasswordMutation } = userApi;
