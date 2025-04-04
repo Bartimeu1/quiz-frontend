@@ -13,7 +13,7 @@ export const UserRating = ({ rating, className }: UserRatingProps) => {
   return (
     <div className={classNames(styles.starRating, className)}>
       <StarIcon width={12} height={12} />
-      <p className={styles.ratingValue}>{rating || 15}</p>
+      <p className={styles.ratingValue}>{rating}</p>
     </div>
   );
 };

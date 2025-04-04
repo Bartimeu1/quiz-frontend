@@ -41,9 +41,19 @@
   margin-left: 5px;
 }
 
-.userName {
+.dataTooper {
+  display: flex;
+  align-items: center;
   margin-bottom: 5px;
+}
+
+.userName {
   font-size: v.$font-size-18;
+}
+
+.adminRole {
+  font-size: v.$font-size-12;
+  margin-left: 5px;
 }
 
 .userEmail {
@@ -78,4 +88,9 @@
   &:last-child {
     margin-right: 0;
   }
+}
+
+.adminAvatar {
+  border: 2px solid v.$color-golden;
+  border-radius: v.$border-radius-circle;
 }

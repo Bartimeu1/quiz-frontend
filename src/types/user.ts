@@ -4,6 +4,12 @@ export interface UserType {
   name: string;
   stars: number;
   avatarId: number;
+  role: UserRole;
+}
+
+export enum UserRole {
+  USER = 'user',
+  ADMIN = 'admin',
 }
 
 export interface ChangeAvatarRequest {

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import styles from './header.module.scss';
 import { Link } from 'react-router-dom';
 import { routes } from '@constants/routes';
-import { userSelector } from '@store/selectors/auth-selector';
+import { userSelector, isAdminSelector } from '@store/selectors/auth-selector';
 import { UserAvatar, UserRating } from '@components/user';
 import { navLinks } from './config';
 import classNames from 'classnames';
@@ -12,14 +12,25 @@ export const Header = () => {
   const location = useLocation();
 
   const { name, avatarId, stars } = useSelector(userSelector);
+  const isAdmin = useSelector(isAdminSelector);
 
   return (
     <header className={styles.header}>
       <div className={styles.userPanel}>
         <div className={styles.userInfo}>
-          <UserAvatar height="52px" width="52px" avatarId={avatarId} />
+          <UserAvatar
+            className={classNames({
+              [styles.adminAvatar]: isAdmin,
+            })}
+            height="52px"
+            width="52px"
+            avatarId={avatarId}
+          />
           <div className={styles.userData}>
-            <p className={styles.userName}>{name}</p>
+            <div className={styles.dataTooper}>
+              <p className={styles.userName}>{name}</p>
+              {isAdmin && <p className={styles.adminRole}>[admin]</p>}
+            </div>
             <UserRating rating={stars} />
           </div>
         </div>
