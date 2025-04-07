@@ -35,7 +35,7 @@ export const Header = () => {
           </div>
         </div>
       </div>
-      <nav>
+      <nav className={styles.navigation}>
         {navLinks.map(({ title, path }) => (
           <Link
             to={path}

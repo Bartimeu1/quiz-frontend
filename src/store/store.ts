@@ -14,6 +14,7 @@ import {
 import { authSlice } from './features/auth/auth-slice';
 import { authApi } from './api/auth-api';
 import { userApi } from './api/user-api';
+import { testsApi } from './api/tests-api';
 
 const persistConfig = {
   key: 'root',
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   auth: authSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
+  [testsApi.reducerPath]: testsApi.reducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, rootReducer);
@@ -32,7 +34,11 @@ const persistedRootReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedRootReducer,
   middleware: (getDefaultMiddleware) => {
-    const allMiddlewares = [authApi.middleware, userApi.middleware];
+    const allMiddlewares = [
+      authApi.middleware,
+      userApi.middleware,
+      testsApi.middleware,
+    ];
 
     return getDefaultMiddleware({
       serializableCheck: {

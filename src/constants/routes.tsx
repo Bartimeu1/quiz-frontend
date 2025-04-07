@@ -12,6 +12,7 @@ export const routes = {
   register: '/register',
   profile: '/profile',
   settings: '/settings',
+  test: '/test',
 };
 
 export const publicRoutes = [

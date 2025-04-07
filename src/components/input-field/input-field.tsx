@@ -13,6 +13,7 @@ export interface InputFieldProps {
   baseValue?: string;
   isPasswordField?: boolean;
   className?: string;
+  inputClassName?: string;
 }
 
 export const InputField = (props: InputFieldProps) => {
@@ -23,6 +24,7 @@ export const InputField = (props: InputFieldProps) => {
     validationText,
     isPasswordField,
     className,
+    inputClassName,
   } = props;
 
   const [inputValue, setInputValue] = useState('');
@@ -51,7 +53,7 @@ export const InputField = (props: InputFieldProps) => {
     <div className={classNames(styles.inputField, className)}>
       <input
         type={getInputType()}
-        className={classNames(styles.inputElement, {
+        className={classNames(inputClassName, styles.inputElement, {
           [styles.withError]: validationText,
         })}
         value={inputValue}
