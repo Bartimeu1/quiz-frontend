@@ -14,3 +14,5 @@ export { ReactComponent as StarIcon } from '../assets/images/star.svg';
 export { ReactComponent as ChevronIcon } from '../assets/images/chevron.svg';
 export { ReactComponent as ApproveIcon } from '../assets/images/approve.svg';
 export { ReactComponent as LoaderIcon } from '../assets/images/loader.svg';
+export { ReactComponent as EditIcon } from '../assets/images/edit.svg';
+export { ReactComponent as CloseIcon } from '../assets/images/close.svg';

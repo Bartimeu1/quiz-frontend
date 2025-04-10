@@ -4,6 +4,7 @@ import { LoginPage } from '@pages/login';
 import { HomePage } from '@pages/home';
 import { ProfilePage } from '@pages/profile';
 import { SettingsPage } from '@pages/settings';
+import { TestsDetailsPage } from '@pages/tests';
 
 export const routes = {
   home: '/',
@@ -12,7 +13,8 @@ export const routes = {
   register: '/register',
   profile: '/profile',
   settings: '/settings',
-  test: '/test',
+  tests: '/tests',
+  testsDetails: '/tests/:id',
 };
 
 export const publicRoutes = [
@@ -28,4 +30,5 @@ export const privateRoutes = [
     path: routes.profile,
     element: <ProfilePage />,
   },
+  { path: routes.testsDetails, element: <TestsDetailsPage /> },
 ];

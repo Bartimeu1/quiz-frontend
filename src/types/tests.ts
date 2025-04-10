@@ -8,6 +8,10 @@ export interface GetAllTestsResponse {
   tests: TestType[];
 }
 
+export interface GetTestDetailsRequest {
+  id: number;
+}
+
 export interface CreateTestRequest {
   title: string;
   description?: string;

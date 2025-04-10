@@ -1,0 +1,51 @@
+@use '@styles/variables' as v;
+
+.detailsItem {
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+
+  & h2 {
+    font-family: v.$font-family-secondary;
+    font-size: v.$font-size-24;
+    color: v.$color-orange;
+    margin-bottom: 25px;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.inputField {
+  position: relative;
+}
+
+.detailsInput {
+  border: none;
+  outline: none;
+  background: inherit;
+  font-size: v.$font-size-18;
+  font-weight: v.$font-weight-medium;
+  font-family: v.$font-family-tertiary;
+  padding: 0;
+}
+
+.modifyButton {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  padding: 10px;
+}
+
+.controlls {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: -30px;
+}
+
+.closeButton {
+  margin-right: 10px;
+}

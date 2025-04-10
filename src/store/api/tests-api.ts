@@ -1,6 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { createBaseQueryWithReauth } from './base-query';
-import { GetAllTestsResponse, CreateTestRequest } from '@root/types/tests';
+import {
+  TestType,
+  GetTestDetailsRequest,
+  GetAllTestsResponse,
+  CreateTestRequest,
+} from '@root/types/tests';
 
 export const testsApi = createApi({
   reducerPath: 'testsApi',
@@ -14,6 +19,12 @@ export const testsApi = createApi({
       }),
       providesTags: ['tests'],
     }),
+    getTestDetails: builder.query<TestType, GetTestDetailsRequest>({
+      query: ({ id }) => ({
+        url: `/${id}`,
+        method: 'GET',
+      }),
+    }),
     createTest: builder.mutation<void, CreateTestRequest>({
       query: (data) => ({
         url: '/create-test',
@@ -25,4 +36,8 @@ export const testsApi = createApi({
   }),
 });
 
-export const { useGetAllTestsQuery, useCreateTestMutation } = testsApi;
+export const {
+  useGetAllTestsQuery,
+  useGetTestDetailsQuery,
+  useCreateTestMutation,
+} = testsApi;

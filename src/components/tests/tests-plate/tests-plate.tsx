@@ -32,7 +32,7 @@ export const TestsPlate = () => {
             <article key={id} className={styles.testItem}>
               <h3>{title}</h3>
               <p>{description || emptyFieldText}</p>
-              <Link to={routes.test}>Explore</Link>
+              <Link to={`${routes.tests}/${id}`}>Explore</Link>
             </article>
           ))}
       </div>
