@@ -3,17 +3,28 @@ import { useGetAllTestsQuery } from '@store/api/tests-api';
 import { Loader } from '@components/loader';
 import { TestsCreationForm } from '../tests-creation-form';
 import { emptyFieldText } from '@constants/text';
-import { Link } from 'react-router-dom';
 import { routes } from '@constants/routes';
+import { useNavigate } from 'react-router';
+import { useAppDispatch } from '@hooks/use-app-dispatch';
+import { setEditingTest } from '@store/features/tests/tests-slice';
 
 import styles from './tests-plate.module.scss';
 
 export const TestsPlate = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const [isCreationModalVisible, setIsCreationModalVisible] = useState(false);
   const { data, isLoading } = useGetAllTestsQuery();
 
   const handleCreationFormToggle = () => {
     setIsCreationModalVisible((prevState) => !prevState);
+  };
+
+  const handleExploreButtonClick = (testId: number) => () => {
+    navigate(`${routes.tests}/${testId}`);
+
+    dispatch(setEditingTest(testId));
   };
 
   if (isLoading) {
@@ -26,16 +37,19 @@ export const TestsPlate = () => {
       <button className={styles.createTest} onClick={handleCreationFormToggle}>
         Create new
       </button>
-      <div className={styles.testsList}>
-        {data &&
-          data.tests.map(({ id, title, description }) => (
+      {data?.tests.length ? (
+        <div className={styles.testsList}>
+          {data.tests.map(({ id, title, description }) => (
             <article key={id} className={styles.testItem}>
               <h3>{title}</h3>
               <p>{description || emptyFieldText}</p>
-              <Link to={`${routes.tests}/${id}`}>Explore</Link>
+              <button onClick={handleExploreButtonClick(id)}>Explore</button>
             </article>
           ))}
-      </div>
+        </div>
+      ) : (
+        <p className={styles.emptyText}>There are no tests yet</p>
+      )}
       {isCreationModalVisible && (
         <TestsCreationForm onClose={handleCreationFormToggle} />
       )}

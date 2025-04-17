@@ -23,6 +23,23 @@
   font-family: v.$font-family-secondary;
   font-size: v.$font-size-32;
   color: v.$color-orange;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 
+.questionsDetails {
+  position: relative;
+
+  & h2 {
+    font-family: v.$font-family-secondary;
+    font-size: v.$font-size-24;
+    color: v.$color-orange;
+    margin-bottom: 25px;
+  }
+}
+
+.creationButton {
+  position: absolute;
+  right: -52px;
+  top: -7px;
+  padding: 10px;
+}

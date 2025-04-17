@@ -49,7 +49,7 @@
     max-height: 50px;
   }
 
-  & a {
+  & button {
     border-radius: v.$border-radius-15;
     border: 1px solid v.$color-orange;
     background: v.$color-orange;
@@ -82,4 +82,10 @@
     color: v.$color-orange;
     background: v.$color-white;
   }
+}
+
+.emptyText {
+  font-size: v.$font-size-18;
+  font-weight: v.$font-weight-medium;
+  padding: 40px 0;
 }

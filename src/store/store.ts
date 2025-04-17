@@ -12,9 +12,11 @@ import {
 } from 'redux-persist';
 
 import { authSlice } from './features/auth/auth-slice';
+import { testsSlice } from './features/tests/tests-slice';
 import { authApi } from './api/auth-api';
 import { userApi } from './api/user-api';
 import { testsApi } from './api/tests-api';
+import { questionsApi } from './api/questions-api';
 
 const persistConfig = {
   key: 'root',
@@ -24,9 +26,11 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
+  tests: testsSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [testsApi.reducerPath]: testsApi.reducer,
+  [questionsApi.reducerPath]: questionsApi.reducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, rootReducer);
@@ -38,6 +42,7 @@ export const store = configureStore({
       authApi.middleware,
       userApi.middleware,
       testsApi.middleware,
+      questionsApi.middleware,
     ];
 
     return getDefaultMiddleware({

@@ -38,6 +38,7 @@ export const Header = () => {
       <nav className={styles.navigation}>
         {navLinks.map(({ title, path }) => (
           <Link
+            key={title}
             to={path}
             className={classNames(styles.navLink, {
               [styles.isTarget]: location.pathname === path,
