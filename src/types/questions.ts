@@ -1,9 +1,13 @@
 export interface QuestionType {
+  id: number;
   title: string;
   multiSelect: boolean;
-  testId: number;
   options: string[];
   correctAnswers: string[];
+}
+
+export interface DeleteQuestionRequest {
+  id: number;
 }
 
 export interface GetTestQuestionsRequest {

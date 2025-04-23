@@ -13,6 +13,7 @@
     "test:unit": "jest"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.2.5",
     "@fontsource-variable/open-sans": "^5.2.5",
     "@fontsource/kalam": "^5.2.5",
     "@hookform/resolvers": "^4.1.3",

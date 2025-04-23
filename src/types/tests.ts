@@ -12,6 +12,10 @@ export interface GetTestDetailsRequest {
   id: number;
 }
 
+export interface DeleteTestRequest {
+  id: number;
+}
+
 export interface CreateTestRequest {
   title: string;
   description?: string;

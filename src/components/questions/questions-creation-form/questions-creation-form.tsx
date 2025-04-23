@@ -81,13 +81,13 @@ export const QuestionsCreationForm = ({ onClose }: TestsCreationFormProps) => {
   const handleFormSubmit = (data: QuestionFormValues) => {
     const { title, multiSelect, options, correctAnswers } = data;
     const requestData = {
+      id: targetEditingTest,
       title,
       multiSelect,
       options: options.map(({ value }) => value),
       correctAnswers: correctAnswers.map(
         (id) => options.find(({ id: optionId }) => id === optionId)?.value,
       ),
-      testId: targetEditingTest,
     };
 
     createQuestionMutation(requestData as QuestionType)

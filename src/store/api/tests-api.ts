@@ -5,6 +5,7 @@ import {
   GetTestDetailsRequest,
   GetAllTestsResponse,
   CreateTestRequest,
+  DeleteTestRequest,
 } from '@root/types/tests';
 
 export const testsApi = createApi({
@@ -33,6 +34,13 @@ export const testsApi = createApi({
       }),
       invalidatesTags: ['tests'],
     }),
+    deleteTest: builder.mutation<void, DeleteTestRequest>({
+      query: ({ id }) => ({
+        url: `/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['tests'],
+    }),
   }),
 });
 
@@ -40,4 +48,5 @@ export const {
   useGetAllTestsQuery,
   useGetTestDetailsQuery,
   useCreateTestMutation,
+  useDeleteTestMutation,
 } = testsApi;
