@@ -7,6 +7,13 @@ export interface UserType {
   role: UserRole;
 }
 
+export interface RoomUserType {
+  id: number;
+  avatarId: number;
+  name: string;
+  ready: boolean;
+}
+
 export enum UserRole {
   USER = 'user',
   ADMIN = 'admin',

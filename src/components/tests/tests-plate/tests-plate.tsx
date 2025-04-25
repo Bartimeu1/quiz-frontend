@@ -22,7 +22,7 @@ export const TestsPlate = () => {
   };
 
   const handleExploreButtonClick = (testId: number) => () => {
-    navigate(`${routes.tests}/${testId}`);
+    navigate(routes.testDetails.replace(':id', String(testId)));
 
     dispatch(setEditingTest(testId));
   };
