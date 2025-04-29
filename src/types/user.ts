@@ -6,6 +6,14 @@ export interface UserType {
   avatarId: number;
   role: UserRole;
 }
+export interface ParticipantsSelectOption {
+  value: number;
+  label: string;
+}
+
+export interface GetUsersRequest {
+  nameOrEmail?: string;
+}
 
 export interface RoomUserType {
   id: number;

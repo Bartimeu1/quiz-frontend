@@ -25,6 +25,7 @@ export const testsApi = createApi({
         url: `/${id}`,
         method: 'GET',
       }),
+      providesTags: ['tests'],
     }),
     createTest: builder.mutation<void, CreateTestRequest>({
       query: (data) => ({

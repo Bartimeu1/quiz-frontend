@@ -16,6 +16,7 @@ import { testsSlice } from './features/tests/tests-slice';
 import { authApi } from './api/auth-api';
 import { userApi } from './api/user-api';
 import { testsApi } from './api/tests-api';
+import { roomsApi } from './api/rooms-api';
 import { questionsApi } from './api/questions-api';
 
 const persistConfig = {
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [testsApi.reducerPath]: testsApi.reducer,
   [questionsApi.reducerPath]: questionsApi.reducer,
+  [roomsApi.reducerPath]: roomsApi.reducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, rootReducer);
@@ -43,6 +45,7 @@ export const store = configureStore({
       userApi.middleware,
       testsApi.middleware,
       questionsApi.middleware,
+      roomsApi.middleware,
     ];
 
     return getDefaultMiddleware({

@@ -2,14 +2,26 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { createBaseQueryWithReauth } from './base-query';
 import {
   UserType,
+  GetUsersRequest,
   ChangeAvatarRequest,
   ChangePasswordRequest,
 } from '@root/types/user';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: createBaseQueryWithReauth('http://localhost:3000/user'),
+  baseQuery: createBaseQueryWithReauth('http://localhost:3000/users'),
   endpoints: (builder) => ({
+    getUsers: builder.query<UserType[], GetUsersRequest>({
+      query: ({ nameOrEmail }) => {
+        const searchParams = nameOrEmail ? { query: nameOrEmail } : {};
+
+        return {
+          url: '/',
+          method: 'GET',
+          params: searchParams,
+        };
+      },
+    }),
     changeAvatar: builder.mutation<UserType, ChangeAvatarRequest>({
       query: (data) => ({
         url: '/change-avatar',
@@ -27,4 +39,8 @@ export const userApi = createApi({
   }),
 });
 
-export const { useChangeAvatarMutation, useChangePasswordMutation } = userApi;
+export const {
+  useLazyGetUsersQuery,
+  useChangeAvatarMutation,
+  useChangePasswordMutation,
+} = userApi;

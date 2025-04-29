@@ -1,6 +1,6 @@
 @use '@styles/variables' as v;
 
-.testsRoomPage {
+.roomPage {
   flex: 1;
   display: flex;
   align-items: center;
@@ -74,5 +74,18 @@
   &:hover {
     color: v.$color-orange;
     background: v.$color-white;
+  }
+}
+
+.errorPlate {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & h2 {
+    font-size: v.$font-size-32;
+    font-weight: v.$font-weight-semiBold;
+    color: v.$color-white;
   }
 }

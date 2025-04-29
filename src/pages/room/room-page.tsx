@@ -7,19 +7,36 @@ import { userIdSelector } from '@store/selectors/auth-selector';
 import { useGetTestDetailsQuery } from '@store/api/tests-api';
 import { UserAvatar } from '@components/user';
 
-import styles from './tests-room.module.scss';
+import styles from './room-page.module.scss';
 
-export const TestsRoom = () => {
-  const { id: testId } = useParams();
+export const RoomPage = () => {
+  const { id: roomId } = useParams();
 
   const userId = useSelector(userIdSelector);
-  const { data: testDetailsData } =
-    useGetTestDetailsQuery({ id: Number(testId) });
 
-  const { users, setReady } = useTestRoom(testId as string, userId);
+  const { isQuizStarted, testId, users, error, setReady } = useTestRoom(
+    roomId as string,
+    userId,
+  );
+
+  const { data: testDetailsData } = useGetTestDetailsQuery({
+    id: Number(testId),
+  });
+
+  if (isQuizStarted) {
+    return <p>Quiz started</p>;
+  }
+
+  if (error.length) {
+    return (
+      <div className={styles.errorPlate}>
+        <h2>{error}</h2>
+      </div>
+    );
+  }
 
   return (
-    <main className={styles.testsRoomPage}>
+    <main className={styles.roomPage}>
       <div className={styles.content}>
         <h1 className={styles.title}>{testDetailsData?.title}</h1>
         <div className={styles.readyPanel}>

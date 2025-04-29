@@ -4,8 +4,8 @@ import { LoginPage } from '@pages/login';
 import { HomePage } from '@pages/home';
 import { ProfilePage } from '@pages/profile';
 import { SettingsPage } from '@pages/settings';
-import { TestsRoom } from '@pages/tests/tests-room';
 import { TestsDetailsPage } from '@pages/tests';
+import { RoomPage } from '@pages/room';
 
 export const routes = {
   home: '/',
@@ -14,8 +14,8 @@ export const routes = {
   register: '/register',
   profile: '/profile',
   settings: '/settings',
-  testRoom: '/test-room/:id',
   testDetails: '/test-details/:id',
+  room: '/room/:id',
 };
 
 export const publicRoutes = [
@@ -31,6 +31,6 @@ export const privateRoutes = [
     path: routes.profile,
     element: <ProfilePage />,
   },
-  { path: routes.testRoom, element: <TestsRoom /> },
+  { path: routes.room, element: <RoomPage /> },
   { path: routes.testDetails, element: <TestsDetailsPage /> },
 ];

@@ -14,10 +14,13 @@ import { QuestionsCreationForm } from '@components/questions';
 import { routes } from '@constants/routes';
 import { TabItem } from '@components/tab-item';
 
+import { successDeleteTestText, errorText } from '@constants/text';
+
 import { PlusIcon } from '@constants/icons';
 
 import styles from './tests-details.module.scss';
 import classNames from 'classnames';
+import { toast } from 'react-toastify';
 
 export const TestsDetailsPage = () => {
   const navigate = useNavigate();
@@ -47,7 +50,13 @@ export const TestsDetailsPage = () => {
     deleteTest({ id })
       .unwrap()
       .then(() => {
+        toast.success(successDeleteTestText);
         navigate(routes.home);
+      })
+      .catch((error) => {
+        const errorMessage = error?.data?.message || errorText;
+
+        toast.error(errorMessage);
       });
   };
 
