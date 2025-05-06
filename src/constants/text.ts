@@ -12,3 +12,4 @@ export const notEnoughParticipantsText =
   'Please select at least one participant';
 export const notEnoughQuestionsText =
   'Test must contain at least two questions';
+export const noOptionSelectedError = 'Al least one option must be selected';

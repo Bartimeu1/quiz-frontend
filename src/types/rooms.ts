@@ -6,3 +6,8 @@ export interface CreateRoomRequest {
 export interface CreateRoomResponse {
   roomId: string;
 }
+
+export interface RoomResultType {
+  userId: string;
+  correctAnswers: number;
+}

@@ -13,6 +13,7 @@ import {
 
 import { authSlice } from './features/auth/auth-slice';
 import { testsSlice } from './features/tests/tests-slice';
+import { quizSlice } from './features/quiz/quiz-slice';
 import { authApi } from './api/auth-api';
 import { userApi } from './api/user-api';
 import { testsApi } from './api/tests-api';
@@ -21,13 +22,14 @@ import { questionsApi } from './api/questions-api';
 
 const persistConfig = {
   key: 'root',
-  whitelist: ['auth'],
+  whitelist: ['auth', 'quiz'],
   storage,
 };
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
   tests: testsSlice.reducer,
+  quiz: quizSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [testsApi.reducerPath]: testsApi.reducer,

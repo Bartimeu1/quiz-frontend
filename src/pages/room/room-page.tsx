@@ -1,64 +1,66 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import classNames from 'classnames';
 import { useTestRoom } from '@hooks/use-test-room';
 
 import { userIdSelector } from '@store/selectors/auth-selector';
 import { useGetTestDetailsQuery } from '@store/api/tests-api';
-import { UserAvatar } from '@components/user';
+
+import { QuizLobby, QuizSession, QuizResults } from '@components/quiz';
+
+import { quizStatusSelector } from '@store/selectors/quiz-selector';
+import { errorText } from '@constants/text';
 
 import styles from './room-page.module.scss';
+import { QuizStatus } from '@root/types/quiz';
+import { Loader } from '@root/components/loader';
 
 export const RoomPage = () => {
   const { id: roomId } = useParams();
 
   const userId = useSelector(userIdSelector);
+  const quizStatus = useSelector(quizStatusSelector(roomId as string));
 
-  const { isQuizStarted, testId, users, error, setReady } = useTestRoom(
-    roomId as string,
-    userId,
-  );
+  const { testId, users, results, error, setReady, submitAnswers } =
+    useTestRoom(roomId as string, userId);
 
-  const { data: testDetailsData } = useGetTestDetailsQuery({
+  const { data: testDetailsData, isLoading } = useGetTestDetailsQuery({
     id: Number(testId),
   });
 
-  if (isQuizStarted) {
-    return <p>Quiz started</p>;
+  if (isLoading) {
+    // TODO: styles
+    return <Loader />;
   }
 
-  if (error.length) {
+  if (error.length || !testDetailsData) {
     return (
       <div className={styles.errorPlate}>
-        <h2>{error}</h2>
+        <h2>{error || errorText}</h2>
       </div>
     );
   }
-
   return (
     <main className={styles.roomPage}>
       <div className={styles.content}>
-        <h1 className={styles.title}>{testDetailsData?.title}</h1>
-        <div className={styles.readyPanel}>
-          <div className={styles.usersList}>
-            {users.map(({ id, name, avatarId, ready }) => (
-              <article key={id} className={styles.userInfo}>
-                <UserAvatar
-                  className={classNames(
-                    styles.userAvatar,
-                    ready ? styles.ready : styles.notReady,
-                  )}
-                  width="70px"
-                  avatarId={avatarId}
-                />
-                <p className={styles.userName}>{name}</p>
-              </article>
-            ))}
-          </div>
-          <button onClick={setReady} className={styles.readyButton}>
-            Ready Up
-          </button>
-        </div>
+        {quizStatus === QuizStatus.WAITING ? (
+          <QuizLobby
+            testTitle={testDetailsData.title}
+            participants={users}
+            onReadyToggle={setReady}
+          />
+        ) : quizStatus === QuizStatus.PROGRESS ? (
+          <QuizSession
+            roomId={roomId as string}
+            testId={Number(testId)}
+            onSubmit={submitAnswers}
+          />
+        ) : quizStatus === QuizStatus.FINISHED ? (
+          <QuizResults
+            roomId={roomId as string}
+            participants={users}
+            results={results}
+          />
+        ) : null}
       </div>
     </main>
   );

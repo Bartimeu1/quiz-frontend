@@ -83,7 +83,9 @@ export const RoomsCreationForm = ({
       usersIds: selectedParticipants.map((participant) => participant.value),
     })
       .unwrap()
-      .then(() => {
+      .then((response) => {
+        const { roomId } = response;
+        console.log(response.roomId);
         toast.success(successCreateRoomText);
         onClose();
       })
