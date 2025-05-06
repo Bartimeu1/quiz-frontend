@@ -6,6 +6,20 @@
   padding: 15px 0 5px;
 }
 
+.sessionTopper {
+  position: relative;
+}
+
+.questionTracker {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  font-size: v.$font-size-17;
+  font-family: v.$font-family-secondary;
+  color: v.$color-orange;
+}
+
 .title {
   text-align: center;
   font-size: v.$font-size-24;

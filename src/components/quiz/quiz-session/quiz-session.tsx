@@ -9,9 +9,10 @@ import {
 } from '@store/features/quiz/quiz-slice';
 import { quizTargetQuestionIdSelector } from '@store/selectors/quiz-selector';
 import { Loader } from '@components/loader';
-import { noOptionSelectedError } from '@constants/text';
+import { noOptionSelectedError, emptyFieldText } from '@constants/text';
 import { INITIAL_QUESTION_INDEX } from '@constants/quiz';
 import { getNextQuestion } from '@utils/get-next-question';
+import { getTargetQuestion } from '@utils/get-target-question';
 
 import styles from './quiz-session.module.scss';
 import { QuizStatus } from '@root/types/quiz';
@@ -30,18 +31,21 @@ export const QuizSession = ({ roomId, testId, onSubmit }: QuizSessionProps) => {
   const [validationError, setValidationError] = useState<string | null>(null);
 
   const targetQuestionId = useSelector(quizTargetQuestionIdSelector(roomId));
+
   const { data: questionsData } = useGetTestQuestionsQuery({ testId });
+  const testQuestions = questionsData?.questions;
 
   useEffect(() => {
-    const firstQuestion = questionsData?.questions?.[INITIAL_QUESTION_INDEX];
+    const firstQuestion = testQuestions?.[INITIAL_QUESTION_INDEX];
 
     if (firstQuestion && targetQuestionId == null) {
       dispatch(setTargetQuestionId({ roomId, questionId: firstQuestion.id }));
     }
   }, [questionsData]);
 
-  const targetQuestion = questionsData?.questions.find(
-    (question) => question.id === targetQuestionId,
+  const { targetQuestionNumber, targetQuestion } = getTargetQuestion(
+    targetQuestionId,
+    testQuestions,
   );
 
   const handleAnswerChange = (option: string) => () => {
@@ -92,7 +96,12 @@ export const QuizSession = ({ roomId, testId, onSubmit }: QuizSessionProps) => {
 
   return (
     <div className={styles.quizSession}>
-      <h2 className={styles.title}>{targetQuestion.title}</h2>
+      <div className={styles.sessionTopper}>
+        <h2 className={styles.title}>{targetQuestion.title}</h2>
+        <p className={styles.questionTracker}>
+          {targetQuestionNumber}/{testQuestions?.length ?? emptyFieldText}
+        </p>
+      </div>
       <ul className={styles.optionsList}>
         {targetQuestion.options.map((option) => {
           const isMultiselect = targetQuestion.multiSelect;
