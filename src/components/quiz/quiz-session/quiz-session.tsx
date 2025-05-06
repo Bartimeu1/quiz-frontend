@@ -10,7 +10,8 @@ import {
 import { quizTargetQuestionIdSelector } from '@store/selectors/quiz-selector';
 import { Loader } from '@components/loader';
 import { noOptionSelectedError } from '@constants/text';
-import { INITIAL_QUESTION_INDEX, QUESTION_STEP } from '@constants/quiz';
+import { INITIAL_QUESTION_INDEX } from '@constants/quiz';
+import { getNextQuestion } from '@utils/get-next-question';
 
 import styles from './quiz-session.module.scss';
 import { QuizStatus } from '@root/types/quiz';
@@ -32,10 +33,10 @@ export const QuizSession = ({ roomId, testId, onSubmit }: QuizSessionProps) => {
   const { data: questionsData } = useGetTestQuestionsQuery({ testId });
 
   useEffect(() => {
-    if (questionsData?.questions && targetQuestionId == null) {
-      const firstQuestionId =
-        questionsData.questions[INITIAL_QUESTION_INDEX]?.id;
-      dispatch(setTargetQuestionId({ roomId, questionId: firstQuestionId }));
+    const firstQuestion = questionsData?.questions?.[INITIAL_QUESTION_INDEX];
+
+    if (firstQuestion && targetQuestionId == null) {
+      dispatch(setTargetQuestionId({ roomId, questionId: firstQuestion.id }));
     }
   }, [questionsData]);
 
@@ -69,19 +70,20 @@ export const QuizSession = ({ roomId, testId, onSubmit }: QuizSessionProps) => {
     setValidationError(null);
     setSelectedAnswers([]);
 
-    const nextQuestionId = questionId + QUESTION_STEP;
-    const nextQuestion = questionsData?.questions.find(
-      ({ id }) => id === nextQuestionId,
+    const { nextQuestionId, nextQuestion } = getNextQuestion(
+      questionId,
+      questionsData?.questions,
     );
 
-    if (nextQuestion) {
-      dispatch(setTargetQuestionId({ roomId, questionId: nextQuestionId }));
-    } else {
+    if (!nextQuestion) {
       dispatch(setQuizStatus({ roomId, status: QuizStatus.FINISHED }));
       dispatch(setTargetQuestionId({ roomId, questionId: null }));
-
       onSubmit();
+
+      return;
     }
+
+    dispatch(setTargetQuestionId({ roomId, questionId: nextQuestionId }));
   };
 
   if (!targetQuestion) {

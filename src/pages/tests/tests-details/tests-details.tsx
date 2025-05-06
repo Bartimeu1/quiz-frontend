@@ -10,7 +10,7 @@ import {
 } from '@store/api/questions-api';
 import { TestsDetailItem } from '@components/tests/tests-detail-item';
 import { Loader } from '@components/loader';
-import { QuestionsCreationForm } from '@components/questions';
+import { QuestionsCreationForm } from '@components/forms';
 import { routes } from '@constants/routes';
 import { TabItem } from '@components/tab-item';
 

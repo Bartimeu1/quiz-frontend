@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { ApproveIcon } from '@constants/icons';
 import { TabItem } from '@components/tab-item';
 import { UserAvatar } from '@components/user';
-import { ChangePasswordForm } from '@components/change-password-form';
+import { ChangePasswordForm } from '@components/forms';
 import { successChangeAvatarText, errorText } from '@constants/text';
 
 import { avatarsItems } from '@constants/avatars';

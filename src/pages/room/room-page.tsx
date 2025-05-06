@@ -15,21 +15,22 @@ import { QuizStatus } from '@root/types/quiz';
 import { Loader } from '@root/components/loader';
 
 export const RoomPage = () => {
-  const { id: roomId } = useParams();
+  const { id } = useParams();
+  const roomId = id as string;
 
   const userId = useSelector(userIdSelector);
-  const quizStatus = useSelector(quizStatusSelector(roomId as string));
+  const quizStatus = useSelector(quizStatusSelector(roomId));
 
   const { testId, users, results, error, setReady, submitAnswers } =
-    useTestRoom(roomId as string, userId);
+    useTestRoom(roomId, userId);
 
-  const { data: testDetailsData, isLoading } = useGetTestDetailsQuery({
-    id: Number(testId),
-  });
+  const { data: testDetailsData, isLoading: isTestDetailsLoading } =
+    useGetTestDetailsQuery({
+      id: Number(testId),
+    });
 
-  if (isLoading) {
-    // TODO: styles
-    return <Loader />;
+  if (isTestDetailsLoading) {
+    return <Loader className={styles.loader} />;
   }
 
   if (error.length || !testDetailsData) {
@@ -50,16 +51,12 @@ export const RoomPage = () => {
           />
         ) : quizStatus === QuizStatus.PROGRESS ? (
           <QuizSession
-            roomId={roomId as string}
+            roomId={roomId}
             testId={Number(testId)}
             onSubmit={submitAnswers}
           />
         ) : quizStatus === QuizStatus.FINISHED ? (
-          <QuizResults
-            roomId={roomId as string}
-            participants={users}
-            results={results}
-          />
+          <QuizResults roomId={roomId} participants={users} results={results} />
         ) : null}
       </div>
     </main>

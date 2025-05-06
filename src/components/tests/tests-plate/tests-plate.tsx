@@ -7,7 +7,7 @@ import { routes } from '@constants/routes';
 import { useNavigate } from 'react-router';
 import { useAppDispatch } from '@hooks/use-app-dispatch';
 import { setEditingTest } from '@store/features/tests/tests-slice';
-import { RoomsCreationForm } from '@components/rooms';
+import { RoomsCreationForm } from '@components/forms';
 
 import { TestType } from '@root/types/tests';
 
