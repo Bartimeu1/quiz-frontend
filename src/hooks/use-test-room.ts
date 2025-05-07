@@ -2,7 +2,11 @@ import { useRef, useState, useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { initializeRoom, setQuizStatus } from '@store/features/quiz/quiz-slice';
+import {
+  initializeRoom,
+  setQuizStatus,
+  setTestId,
+} from '@store/features/quiz/quiz-slice';
 
 import {
   quizAnswersSelector,
@@ -10,12 +14,16 @@ import {
 } from '@store/selectors/quiz-selector';
 
 import { RoomUserType } from '@root/types/user';
-import { RoomResultType } from '@root/types/rooms';
+import {
+  RoomResultType,
+  RoomSocketEvents,
+  RoomJoinError,
+  RoomData,
+} from '@root/types/rooms';
 import { QuizStatus } from '@root/types/quiz';
 
 export const useTestRoom = (roomId: string, userId: number) => {
   const dispatch = useDispatch();
-
   const socketRef = useRef<Socket>(null);
 
   const answers = useSelector(quizAnswersSelector(roomId));
@@ -23,7 +31,6 @@ export const useTestRoom = (roomId: string, userId: number) => {
 
   const [users, setUsers] = useState<RoomUserType[]>([]);
   const [results, setResults] = useState<RoomResultType[]>([]);
-  const [testId, setTestId] = useState<number | null>(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -38,43 +45,52 @@ export const useTestRoom = (roomId: string, userId: number) => {
     socketRef.current = socket;
 
     dispatch(initializeRoom({ roomId }));
-    socket.emit('room-join', { roomId, userId });
+    socket.emit(RoomSocketEvents.ROOM_JOIN, { roomId, userId });
 
-    socket.on('room-join-error', (error) => {
-      setError(error.message);
-    });
-
-    socket.on('room-data', ({ testId, users, results }) => {
-      setUsers(users);
-      setTestId(testId);
-      setResults(results);
-    });
-
-    socket.on('room-users', (users) => {
-      setUsers(users);
-    });
-
-    socket.on('room-results', (results) => {
-      setResults(results);
-    });
-
-    socket.on('start-quiz', () => {
-      dispatch(setQuizStatus({ roomId, status: QuizStatus.PROGRESS }));
-    });
+    socket.on(RoomSocketEvents.ROOM_JOIN_ERROR, handleRoomJoinError);
+    socket.on(RoomSocketEvents.ROOM_DATA, handleRoomData);
+    socket.on(RoomSocketEvents.ROOM_USERS, handleRoomUsers);
+    socket.on(RoomSocketEvents.ROOM_RESULTS, handleRoomResults);
+    socket.on(RoomSocketEvents.START_QUIZ, handleStartQuiz);
 
     return () => {
-      socket.emit('room-leave', { roomId, userId });
+      socket.emit(RoomSocketEvents.ROOM_LEAVE, { roomId, userId });
       socket.disconnect();
     };
   }, []);
 
   const setReady = () => {
-    socketRef.current?.emit('set-ready', { roomId, userId });
+    socketRef.current?.emit(RoomSocketEvents.SET_READY, { roomId, userId });
   };
 
   const submitAnswers = () => {
-    socketRef.current?.emit('submit-answers', { roomId, userId, answers });
+    socketRef.current?.emit(RoomSocketEvents.SUBMIT_ANSWERS, {
+      roomId,
+      userId,
+      answers,
+    });
   };
 
-  return { testId, users, results, error, setReady };
+  const handleRoomJoinError = ({ message }: RoomJoinError) => setError(message);
+
+  const handleRoomData = ({ testId, users, results }: RoomData) => {
+    console.log(testId);
+    dispatch(setTestId({ roomId, testId }));
+    setUsers(users);
+    setResults(results);
+  };
+
+  const handleRoomUsers = (users: RoomUserType[]) => {
+    setUsers(users);
+  };
+
+  const handleRoomResults = (results: RoomResultType[]) => {
+    setResults(results);
+  };
+
+  const handleStartQuiz = () => {
+    dispatch(setQuizStatus({ roomId, status: QuizStatus.PROGRESS }));
+  };
+
+  return { users, results, error, setReady };
 };

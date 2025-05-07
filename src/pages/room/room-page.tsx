@@ -7,7 +7,10 @@ import { useGetTestDetailsQuery } from '@store/api/tests-api';
 
 import { QuizLobby, QuizSession, QuizResults } from '@components/quiz';
 
-import { quizStatusSelector } from '@store/selectors/quiz-selector';
+import {
+  quizStatusSelector,
+  quizTestIdSelector,
+} from '@store/selectors/quiz-selector';
 import { errorText } from '@constants/text';
 
 import styles from './room-page.module.scss';
@@ -19,19 +22,15 @@ export const RoomPage = () => {
   const roomId = id as string;
 
   const userId = useSelector(userIdSelector);
+  const testId = useSelector(quizTestIdSelector(roomId)) as number;
   const quizStatus = useSelector(quizStatusSelector(roomId));
 
-  const { testId, users, results, error, setReady } = useTestRoom(
-    roomId,
-    userId,
-  );
+  const { users, results, error, setReady } = useTestRoom(roomId, userId);
+  const { data: testDetailsData, isLoading } = useGetTestDetailsQuery({
+    id: testId,
+  });
 
-  const { data: testDetailsData, isLoading: isTestDetailsLoading } =
-    useGetTestDetailsQuery({
-      id: Number(testId),
-    });
-
-  if (isTestDetailsLoading) {
+  if (isLoading) {
     return <Loader className={styles.loader} />;
   }
 
@@ -42,21 +41,31 @@ export const RoomPage = () => {
       </div>
     );
   }
-  return (
-    <main className={styles.roomPage}>
-      <div className={styles.content}>
-        {quizStatus === QuizStatus.WAITING ? (
+
+  const renderQuizContent = () => {
+    switch (quizStatus) {
+      case QuizStatus.WAITING:
+        return (
           <QuizLobby
             testTitle={testDetailsData.title}
             participants={users}
             onReadyToggle={setReady}
           />
-        ) : quizStatus === QuizStatus.PROGRESS ? (
-          <QuizSession roomId={roomId} testId={Number(testId)} />
-        ) : quizStatus === QuizStatus.FINISHED ? (
+        );
+      case QuizStatus.PROGRESS:
+        return <QuizSession roomId={roomId} testId={testId} />;
+      case QuizStatus.FINISHED:
+        return (
           <QuizResults roomId={roomId} participants={users} results={results} />
-        ) : null}
-      </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <main className={styles.roomPage}>
+      <div className={styles.content}>{renderQuizContent()}</div>
     </main>
   );
 };

@@ -5,6 +5,7 @@ import { NOT_FOUND_INDEX } from '@constants/quiz';
 
 const INITIAL_ROOM_STATE: QuizRoomState = {
   quizStatus: QuizStatus.WAITING,
+  testId: null,
   targetQuestionId: null,
   answers: [],
 };
@@ -35,6 +36,14 @@ export const quizSlice = createSlice({
       const { roomId, status } = action.payload;
 
       state[roomId].quizStatus = status;
+    },
+    setTestId: (
+      state,
+      action: PayloadAction<{ roomId: string; testId: number }>,
+    ) => {
+      const { roomId, testId } = action.payload;
+
+      state[roomId].testId = testId;
     },
     setTargetQuestionId: (
       state,
@@ -71,6 +80,7 @@ export const quizSlice = createSlice({
 export const {
   initializeRoom,
   clearRoom,
+  setTestId,
   setQuizStatus,
   setTargetQuestionId,
   setAnswer,
