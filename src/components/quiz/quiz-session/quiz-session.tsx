@@ -21,10 +21,9 @@ import classNames from 'classnames';
 interface QuizSessionProps {
   roomId: string;
   testId: number;
-  onSubmit: () => void;
 }
 
-export const QuizSession = ({ roomId, testId, onSubmit }: QuizSessionProps) => {
+export const QuizSession = ({ roomId, testId }: QuizSessionProps) => {
   const dispatch = useDispatch();
 
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
@@ -80,9 +79,8 @@ export const QuizSession = ({ roomId, testId, onSubmit }: QuizSessionProps) => {
     );
 
     if (!nextQuestion) {
-      dispatch(setQuizStatus({ roomId, status: QuizStatus.FINISHED }));
       dispatch(setTargetQuestionId({ roomId, questionId: null }));
-      onSubmit();
+      dispatch(setQuizStatus({ roomId, status: QuizStatus.SUBMITTING }));
 
       return;
     }

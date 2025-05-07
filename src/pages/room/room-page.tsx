@@ -21,8 +21,10 @@ export const RoomPage = () => {
   const userId = useSelector(userIdSelector);
   const quizStatus = useSelector(quizStatusSelector(roomId));
 
-  const { testId, users, results, error, setReady, submitAnswers } =
-    useTestRoom(roomId, userId);
+  const { testId, users, results, error, setReady } = useTestRoom(
+    roomId,
+    userId,
+  );
 
   const { data: testDetailsData, isLoading: isTestDetailsLoading } =
     useGetTestDetailsQuery({
@@ -50,11 +52,7 @@ export const RoomPage = () => {
             onReadyToggle={setReady}
           />
         ) : quizStatus === QuizStatus.PROGRESS ? (
-          <QuizSession
-            roomId={roomId}
-            testId={Number(testId)}
-            onSubmit={submitAnswers}
-          />
+          <QuizSession roomId={roomId} testId={Number(testId)} />
         ) : quizStatus === QuizStatus.FINISHED ? (
           <QuizResults roomId={roomId} participants={users} results={results} />
         ) : null}

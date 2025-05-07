@@ -4,7 +4,10 @@ import { io, Socket } from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 import { initializeRoom, setQuizStatus } from '@store/features/quiz/quiz-slice';
 
-import { quizAnswersSelector } from '@store/selectors/quiz-selector';
+import {
+  quizAnswersSelector,
+  quizStatusSelector,
+} from '@store/selectors/quiz-selector';
 
 import { RoomUserType } from '@root/types/user';
 import { RoomResultType } from '@root/types/rooms';
@@ -16,11 +19,19 @@ export const useTestRoom = (roomId: string, userId: number) => {
   const socketRef = useRef<Socket>(null);
 
   const answers = useSelector(quizAnswersSelector(roomId));
+  const quizStatus = useSelector(quizStatusSelector(roomId));
 
   const [users, setUsers] = useState<RoomUserType[]>([]);
   const [results, setResults] = useState<RoomResultType[]>([]);
   const [testId, setTestId] = useState<number | null>(null);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (quizStatus === QuizStatus.SUBMITTING) {
+      submitAnswers();
+      dispatch(setQuizStatus({ roomId, status: QuizStatus.FINISHED }));
+    }
+  }, [quizStatus]);
 
   useEffect(() => {
     const socket = io('http://localhost:3000');
@@ -65,5 +76,5 @@ export const useTestRoom = (roomId: string, userId: number) => {
     socketRef.current?.emit('submit-answers', { roomId, userId, answers });
   };
 
-  return { testId, users, results, error, setReady, submitAnswers };
+  return { testId, users, results, error, setReady };
 };
