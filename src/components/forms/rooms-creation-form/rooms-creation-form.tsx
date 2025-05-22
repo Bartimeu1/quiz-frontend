@@ -23,6 +23,8 @@ import { useThrottle } from '@hooks/use-throttle';
 import styles from './rooms-creation-form.module.scss';
 import { ModalWrapper } from '@components/modal-wrapper';
 import { ParticipantsSelectOption } from '@root/types/user';
+import { Loader } from '@components/loader';
+import { SuccessRoomCreationModal } from '@components/modals';
 
 const MIN_PARTICIPANTS = 1;
 const MIN_TEST_QUESTIONS = 2;
@@ -37,12 +39,14 @@ export const RoomsCreationForm = ({
 
   const [inputValue, setInputValue] = useState('');
   const [validationText, setValidationText] = useState('');
+  const [createdRoomId, setCreatedRoomId] = useState('');
   const [selectedParticipants, setSelectedParticipants] = useState<
     ParticipantsSelectOption[]
   >([]);
   const throttledInput = useThrottle(inputValue, SEARCH_THROTTLE_TIME);
 
-  const [createRoomMutation] = useCreateRoomMutation();
+  const [createRoomMutation, { isLoading: isRoomCreationLoading }] =
+    useCreateRoomMutation();
   const [getUsers, { data: usersData }] = useLazyGetUsersQuery();
   const { data: questionsData } = useGetTestQuestionsQuery({
     testId: selectedTest.id,
@@ -53,6 +57,11 @@ export const RoomsCreationForm = ({
   useEffect(() => {
     getUsers({ nameOrEmail: throttledInput });
   }, [throttledInput]);
+
+  const handleClearRoomId = () => {
+    setCreatedRoomId('');
+    onClose();
+  };
 
   const handleInputChange = (value: string) => {
     setInputValue(value);
@@ -85,9 +94,9 @@ export const RoomsCreationForm = ({
       .unwrap()
       .then((response) => {
         const { roomId } = response;
-        console.log(response.roomId);
+
+        setCreatedRoomId(roomId);
         toast.success(successCreateRoomText);
-        onClose();
       })
       .catch((error) => {
         const errorMessage = error?.data?.message || errorText;
@@ -95,40 +104,53 @@ export const RoomsCreationForm = ({
       });
   };
 
+  if (createdRoomId) {
+    return (
+      <SuccessRoomCreationModal
+        newRoomId={createdRoomId}
+        onClose={handleClearRoomId}
+      />
+    );
+  }
+
   return (
     <ModalWrapper>
       <div className={styles.creationModal}>
-        <div ref={modalRef} className={styles.creationForm}>
-          <h2 className={styles.title}>Create Room</h2>
-          <div className={styles.titleWrapper}>
-            <h3>Test name:</h3>
-            <p className={styles.testTitle}>{selectedTest.title}</p>
-          </div>
-          <div className={styles.usersSearch}>
-            <h3>Selected participants:</h3>
-            <div className={styles.selectWrapper}>
-              <Select
-                className={styles.usersSelect}
-                onChange={handleParticipantsSelect}
-                onInputChange={handleInputChange}
-                value={selectedParticipants}
-                options={selectOptions}
-                isMulti={true}
-                isClearable={false}
-                placeholder="Search users by name or email..."
-              />
-              {validationText && (
-                <p className={styles.validationText}>{validationText}</p>
-              )}
+        {isRoomCreationLoading ? (
+          <Loader />
+        ) : (
+          <div ref={modalRef} className={styles.creationForm}>
+            <h2 className={styles.title}>Create Room</h2>
+            <div className={styles.titleWrapper}>
+              <h3>Test name:</h3>
+              <p className={styles.testTitle}>{selectedTest.title}</p>
             </div>
+            <div className={styles.usersSearch}>
+              <h3>Selected participants:</h3>
+              <div className={styles.selectWrapper}>
+                <Select
+                  className={styles.usersSelect}
+                  onChange={handleParticipantsSelect}
+                  onInputChange={handleInputChange}
+                  value={selectedParticipants}
+                  options={selectOptions}
+                  isMulti={true}
+                  isClearable={false}
+                  placeholder="Search users by name or email..."
+                />
+                {validationText && (
+                  <p className={styles.validationText}>{validationText}</p>
+                )}
+              </div>
+            </div>
+            <button
+              onClick={handleCreateButtonClick}
+              className={styles.createButton}
+            >
+              Create
+            </button>
           </div>
-          <button
-            onClick={handleCreateButtonClick}
-            className={styles.createButton}
-          >
-            Create
-          </button>
-        </div>
+        )}
       </div>
     </ModalWrapper>
   );

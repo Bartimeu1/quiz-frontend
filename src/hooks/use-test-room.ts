@@ -74,7 +74,6 @@ export const useTestRoom = (roomId: string, userId: number) => {
   const handleRoomJoinError = ({ message }: RoomJoinError) => setError(message);
 
   const handleRoomData = ({ testId, users, results }: RoomData) => {
-    console.log(testId);
     dispatch(setTestId({ roomId, testId }));
     setUsers(users);
     setResults(results);
