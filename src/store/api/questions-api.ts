@@ -5,6 +5,7 @@ import {
   DeleteQuestionRequest,
   GetTestQuestionsRequest,
   GetTestQuestionsResponse,
+  GetPublicQuestionsResponse,
 } from '@root/types/questions';
 
 import { createBaseQueryWithReauth } from './base-query';
@@ -39,6 +40,15 @@ export const questionsApi = createApi({
       }),
       providesTags: ['questions'],
     }),
+    getPublicTestQuestions: builder.query<
+      GetPublicQuestionsResponse,
+      GetTestQuestionsRequest
+    >({
+      query: ({ testId }) => ({
+        url: `/public/${testId}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -46,4 +56,5 @@ export const {
   useCreateQuestionMutation,
   useDeleteQuestionMutation,
   useGetTestQuestionsQuery,
+  useGetPublicTestQuestionsQuery,
 } = questionsApi;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { useGetTestQuestionsQuery } from '@store/api/questions-api';
+import { useGetPublicTestQuestionsQuery } from '@store/api/questions-api';
 import {
   setTargetQuestionId,
   setAnswer,
@@ -31,7 +31,7 @@ export const QuizSession = ({ roomId, testId }: QuizSessionProps) => {
 
   const targetQuestionId = useSelector(quizTargetQuestionIdSelector(roomId));
 
-  const { data: questionsData } = useGetTestQuestionsQuery({ testId });
+  const { data: questionsData } = useGetPublicTestQuestionsQuery({ testId });
   const testQuestions = questionsData?.questions;
 
   useEffect(() => {

@@ -1,11 +1,11 @@
-import { QuestionType } from '@root/types/questions';
+import { PublicQuestionType } from '@root/types/questions';
 
 const SAFE_INDEX = 0;
 const QUESTION_NUMBER_OFFSET = 1;
 
 export const getTargetQuestion = (
   targetId: number | null,
-  questions?: QuestionType[],
+  questions?: PublicQuestionType[],
 ) => {
   const targetQuestionIndex =
     questions?.findIndex((q) => q.id === targetId) || SAFE_INDEX;

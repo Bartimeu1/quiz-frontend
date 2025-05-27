@@ -6,6 +6,8 @@ export interface QuestionType {
   correctAnswers: string[];
 }
 
+export type PublicQuestionType = Omit<QuestionType, 'correctAnswers'>;
+
 export interface DeleteQuestionRequest {
   id: number;
 }
@@ -16,4 +18,8 @@ export interface GetTestQuestionsRequest {
 
 export interface GetTestQuestionsResponse {
   questions: QuestionType[];
+}
+
+export interface GetPublicQuestionsResponse {
+  questions: PublicQuestionType[];
 }
