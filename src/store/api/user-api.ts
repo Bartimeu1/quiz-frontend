@@ -22,6 +22,12 @@ export const userApi = createApi({
         };
       },
     }),
+    getLeaders: builder.query<UserType[], void>({
+      query: () => ({
+        url: '/leaders',
+        method: 'GET',
+      }),
+    }),
     changeAvatar: builder.mutation<UserType, ChangeAvatarRequest>({
       query: (data) => ({
         url: '/change-avatar',
@@ -41,6 +47,7 @@ export const userApi = createApi({
 
 export const {
   useLazyGetUsersQuery,
+  useGetLeadersQuery,
   useChangeAvatarMutation,
   useChangePasswordMutation,
 } = userApi;

@@ -18,3 +18,4 @@ export { ReactComponent as EditIcon } from '../assets/images/edit.svg';
 export { ReactComponent as CloseIcon } from '../assets/images/close.svg';
 export { ReactComponent as PlusIcon } from '../assets/images/plus.svg';
 export { ReactComponent as SuccessIcon } from '../assets/images/success.svg';
+export { ReactComponent as ErrorIcon } from '../assets/images/error.svg';
