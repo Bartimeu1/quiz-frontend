@@ -17,8 +17,6 @@ export interface GetUsersRequest {
 
 export interface RoomUserType {
   id: number;
-  avatarId: number;
-  name: string;
   ready: boolean;
 }
 

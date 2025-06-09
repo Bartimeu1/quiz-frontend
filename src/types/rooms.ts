@@ -1,4 +1,5 @@
 import { RoomUserType } from './user';
+import { ParticipantType } from './quiz';
 
 export interface CreateRoomRequest {
   usersIds: number[];
@@ -34,4 +35,5 @@ export interface RoomData {
   testId: number;
   users: RoomUserType[];
   results: RoomResultType[];
+  participants: ParticipantType[];
 }

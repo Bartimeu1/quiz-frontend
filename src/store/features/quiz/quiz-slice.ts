@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { QuizRoomState, TestsSliceState } from './types';
-import { QuizStatus } from '@root/types/quiz';
+import { QuizStatus, ParticipantType } from '@root/types/quiz';
 import { NOT_FOUND_INDEX } from '@constants/quiz';
 
 const INITIAL_ROOM_STATE: QuizRoomState = {
   quizStatus: QuizStatus.WAITING,
   testId: null,
   targetQuestionId: null,
+  participants: [],
   answers: [],
 };
 
@@ -53,6 +54,17 @@ export const quizSlice = createSlice({
 
       state[roomId].targetQuestionId = questionId;
     },
+    setParticipants: (
+      state,
+      action: PayloadAction<{
+        roomId: string;
+        participants: ParticipantType[];
+      }>,
+    ) => {
+      const { roomId, participants } = action.payload;
+
+      state[roomId].participants = participants;
+    },
     setAnswer: (
       state,
       action: PayloadAction<{
@@ -82,6 +94,7 @@ export const {
   clearRoom,
   setTestId,
   setQuizStatus,
+  setParticipants,
   setTargetQuestionId,
   setAnswer,
 } = quizSlice.actions;

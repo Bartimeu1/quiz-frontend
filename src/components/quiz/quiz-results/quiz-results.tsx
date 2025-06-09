@@ -1,9 +1,11 @@
 import { orderBy } from 'lodash';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { RoomUserType } from '@root/types/user';
 import { RoomResultType } from '@root/types/rooms';
 import { clearRoom, setQuizStatus } from '@store/features/quiz/quiz-slice';
+import { quizParticipantsSelector } from '@store/selectors/quiz-selector';
+
+import { BASE_AVATAR_ID } from '@root/constants/quiz';
 
 import { UserAvatar } from '@components/user';
 import { useNavigate } from 'react-router-dom';
@@ -14,18 +16,14 @@ import { QuizStatus } from '@root/types/quiz';
 
 interface QuizResultsProps {
   roomId: string;
-  participants: RoomUserType[];
   results: RoomResultType[];
 }
 
-export const QuizResults = ({
-  roomId,
-  participants,
-  results,
-}: QuizResultsProps) => {
+export const QuizResults = ({ roomId, results }: QuizResultsProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const participants = useSelector(quizParticipantsSelector(roomId));
   const sortedResults = orderBy(results, ['correctAnswers'], 'desc');
 
   const handleRestartButtonClick = () => {
@@ -50,15 +48,16 @@ export const QuizResults = ({
           <p>Correct Answers</p>
         </div>
         {sortedResults.map(({ userId, correctAnswers }) => {
-          const { avatarId, name } = participants.find(
-            ({ id }) => id === Number(userId),
-          ) as RoomUserType;
+          const userData = participants.find(({ id }) => id === Number(userId));
 
           return (
             <article className={styles.resultItem} key={userId}>
               <div className={styles.userInfo}>
-                <UserAvatar avatarId={avatarId} width="60px" />
-                <p>{name}</p>
+                <UserAvatar
+                  avatarId={userData?.avatarId || BASE_AVATAR_ID}
+                  width="60px"
+                />
+                <p>{userData?.name}</p>
               </div>
               <p className={styles.answersAmount}>{correctAnswers}</p>
             </article>

@@ -16,6 +16,12 @@ export const quizTargetQuestionIdSelector = (roomId: string) =>
     (roomState) => roomState?.targetQuestionId,
   );
 
+export const quizParticipantsSelector = (roomId: string) =>
+  createSelector(
+    quizRoomSelector(roomId),
+    (roomState) => roomState.participants,
+  );
+
 export const quizAnswersSelector = (roomId: string) =>
   createSelector(quizRoomSelector(roomId), (roomState) => roomState?.answers);
 

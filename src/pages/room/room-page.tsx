@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTestRoom } from '@hooks/use-test-room';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 import { userIdSelector } from '@store/selectors/auth-selector';
 import { useGetTestDetailsQuery } from '@store/api/tests-api';
@@ -26,9 +27,9 @@ export const RoomPage = () => {
   const quizStatus = useSelector(quizStatusSelector(roomId));
 
   const { users, results, error, setReady } = useTestRoom(roomId, userId);
-  const { data: testDetailsData, isLoading } = useGetTestDetailsQuery({
-    id: testId,
-  });
+  const { data: testDetailsData, isLoading } = useGetTestDetailsQuery(
+    testId ? { id: testId } : skipToken,
+  );
 
   if (isLoading) {
     return <Loader className={styles.loader} />;
@@ -47,17 +48,16 @@ export const RoomPage = () => {
       case QuizStatus.WAITING:
         return (
           <QuizLobby
+            roomId={roomId}
             testTitle={testDetailsData.title}
-            participants={users}
+            activeUsers={users}
             onReadyToggle={setReady}
           />
         );
       case QuizStatus.PROGRESS:
         return <QuizSession roomId={roomId} testId={testId} />;
       case QuizStatus.FINISHED:
-        return (
-          <QuizResults roomId={roomId} participants={users} results={results} />
-        );
+        return <QuizResults roomId={roomId} results={results} />;
       default:
         return null;
     }

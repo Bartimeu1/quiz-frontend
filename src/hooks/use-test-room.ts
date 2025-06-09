@@ -6,6 +6,7 @@ import {
   initializeRoom,
   setQuizStatus,
   setTestId,
+  setParticipants,
 } from '@store/features/quiz/quiz-slice';
 
 import {
@@ -73,8 +74,14 @@ export const useTestRoom = (roomId: string, userId: number) => {
 
   const handleRoomJoinError = ({ message }: RoomJoinError) => setError(message);
 
-  const handleRoomData = ({ testId, users, results }: RoomData) => {
+  const handleRoomData = ({
+    testId,
+    users,
+    results,
+    participants,
+  }: RoomData) => {
     dispatch(setTestId({ roomId, testId }));
+    dispatch(setParticipants({ roomId, participants }));
     setUsers(users);
     setResults(results);
   };
