@@ -35,8 +35,8 @@ export const SettingsPage = () => {
       avatarId: selectedAvatarId,
     })
       .unwrap()
-      .then((data) => {
-        dispatch(setUser(data));
+      .then(({ data }) => {
+        dispatch(setUser({ user: data }));
         toast.success(successChangeAvatarText);
       })
       .catch((error) => {

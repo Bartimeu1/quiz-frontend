@@ -12,6 +12,10 @@ export interface GetTestDetailsRequest {
   id: number;
 }
 
+export interface GetTestDetailsResponse {
+  test: TestType;
+}
+
 export interface DeleteTestRequest {
   id: number;
 }

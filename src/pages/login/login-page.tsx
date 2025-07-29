@@ -32,7 +32,7 @@ export const LoginPage = () => {
   const handleFormSubmit = async (data: LoginFormValues) => {
     const { identifier, password } = data;
 
-    login({ userNameOrEmail: identifier, password })
+    login({ email: identifier, password })
       .unwrap()
       .then((credentials) => {
         dispatch(setCredentials(credentials));

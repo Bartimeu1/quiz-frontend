@@ -71,12 +71,12 @@ export const TestsDetailsPage = () => {
         <TestsDetailItem
           onChange={() => {}}
           title="Title"
-          defautlValue={testDetailsData?.title}
+          defautlValue={testDetailsData?.test.title}
         />
         <TestsDetailItem
           onChange={() => {}}
           title="Description"
-          defautlValue={testDetailsData?.description}
+          defautlValue={testDetailsData?.test.description}
         />
         <div className={styles.questionsDetails}>
           <div className={styles.questionsTopper}>

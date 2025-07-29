@@ -1,8 +1,8 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { createBaseQueryWithReauth } from './base-query';
 import {
-  TestType,
   GetTestDetailsRequest,
+  GetTestDetailsResponse,
   GetAllTestsResponse,
   CreateTestRequest,
   DeleteTestRequest,
@@ -20,7 +20,10 @@ export const testsApi = createApi({
       }),
       providesTags: ['tests'],
     }),
-    getTestDetails: builder.query<TestType, GetTestDetailsRequest>({
+    getTestDetails: builder.query<
+      GetTestDetailsResponse,
+      GetTestDetailsRequest
+    >({
       query: ({ id }) => ({
         url: `/${id}`,
         method: 'GET',

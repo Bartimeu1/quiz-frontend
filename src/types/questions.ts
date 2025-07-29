@@ -20,6 +20,4 @@ export interface GetTestQuestionsResponse {
   questions: QuestionType[];
 }
 
-export interface GetPublicQuestionsResponse {
-  questions: PublicQuestionType[];
-}
+export type GetPublicQuestionsResponse = PublicQuestionType[];

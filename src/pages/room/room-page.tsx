@@ -49,7 +49,7 @@ export const RoomPage = () => {
         return (
           <QuizLobby
             roomId={roomId}
-            testTitle={testDetailsData.title}
+            testTitle={testDetailsData.test.title}
             activeUsers={users}
             onReadyToggle={setReady}
           />

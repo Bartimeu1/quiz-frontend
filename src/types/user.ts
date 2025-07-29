@@ -31,7 +31,7 @@ export interface ChangeAvatarRequest {
 }
 
 export interface ChangeAvatarResponse {
-  user: UserType;
+  data: UserType;
 }
 
 export interface ChangePasswordRequest {

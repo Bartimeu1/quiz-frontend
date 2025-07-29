@@ -16,7 +16,7 @@ export const inputControllers: InputController[] = [
   {
     name: 'identifier',
     type: 'text',
-    placeholder: 'Email or User Name',
+    placeholder: 'Email',
   },
   {
     name: 'password',

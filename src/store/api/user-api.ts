@@ -4,6 +4,7 @@ import {
   UserType,
   GetUsersRequest,
   ChangeAvatarRequest,
+  ChangeAvatarResponse,
   ChangePasswordRequest,
 } from '@root/types/user';
 
@@ -28,7 +29,7 @@ export const userApi = createApi({
         method: 'GET',
       }),
     }),
-    changeAvatar: builder.mutation<UserType, ChangeAvatarRequest>({
+    changeAvatar: builder.mutation<ChangeAvatarResponse, ChangeAvatarRequest>({
       query: (data) => ({
         url: '/change-avatar',
         method: 'POST',

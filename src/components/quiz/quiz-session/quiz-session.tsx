@@ -31,16 +31,15 @@ export const QuizSession = ({ roomId, testId }: QuizSessionProps) => {
 
   const targetQuestionId = useSelector(quizTargetQuestionIdSelector(roomId));
 
-  const { data: questionsData } = useGetPublicTestQuestionsQuery({ testId });
-  const testQuestions = questionsData?.questions;
-
+  const { data: testQuestions } = useGetPublicTestQuestionsQuery({ testId });
+  console.log(testQuestions);
   useEffect(() => {
     const firstQuestion = testQuestions?.[INITIAL_QUESTION_INDEX];
 
     if (firstQuestion && targetQuestionId == null) {
       dispatch(setTargetQuestionId({ roomId, questionId: firstQuestion.id }));
     }
-  }, [questionsData]);
+  }, [testQuestions]);
 
   const { targetQuestionNumber, targetQuestion } = getTargetQuestion(
     targetQuestionId,
@@ -75,7 +74,7 @@ export const QuizSession = ({ roomId, testId }: QuizSessionProps) => {
 
     const { nextQuestionId, nextQuestion } = getNextQuestion(
       questionId,
-      questionsData?.questions,
+      testQuestions,
     );
 
     if (!nextQuestion) {
