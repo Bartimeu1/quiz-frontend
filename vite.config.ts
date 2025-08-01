@@ -50,11 +50,14 @@ export default defineConfig(({ mode }) => {
         include: '**/*.svg',
       }),
     ],
-    base: './',
+    base: '/',
     css: {
       modules: {
         localsConvention: 'camelCaseOnly',
       },
+    },
+    server: {
+      host: true,
     },
   };
 });
