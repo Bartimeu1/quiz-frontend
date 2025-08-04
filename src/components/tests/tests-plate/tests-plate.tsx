@@ -35,8 +35,8 @@ export const TestsPlate = () => {
     setSelectedTest(null);
   };
 
-  const handleExploreButtonClick = (testId: number) => () => {
-    navigate(routes.testDetails.replace(':id', String(testId)));
+  const handleExploreButtonClick = (testId: string) => () => {
+    navigate(routes.testDetails.replace(':id', testId));
 
     dispatch(setEditingTest(testId));
   };

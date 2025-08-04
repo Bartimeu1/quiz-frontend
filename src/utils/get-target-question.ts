@@ -4,7 +4,7 @@ const SAFE_INDEX = 0;
 const QUESTION_NUMBER_OFFSET = 1;
 
 export const getTargetQuestion = (
-  targetId: number | null,
+  targetId: string | null,
   questions?: PublicQuestionType[],
 ) => {
   const targetQuestionIndex =

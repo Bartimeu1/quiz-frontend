@@ -1,3 +1,3 @@
 export interface TestsSliceState {
-  editingTest: number | null;
+  editingTest: string | null;
 }

@@ -23,7 +23,7 @@ export const RoomPage = () => {
   const roomId = id as string;
 
   const userId = useSelector(userIdSelector);
-  const testId = useSelector(quizTestIdSelector(roomId)) as number;
+  const testId = useSelector(quizTestIdSelector(roomId)) || '';
   const quizStatus = useSelector(quizStatusSelector(roomId));
 
   const { users, results, error, setReady } = useTestRoom(roomId, userId);

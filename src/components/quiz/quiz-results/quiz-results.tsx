@@ -34,7 +34,7 @@ export const QuizResults = ({ roomId, results }: QuizResultsProps) => {
     dispatch(clearRoom({ roomId }));
     navigate(routes.home);
   };
-  console.log(results);
+
   if (!results.length) {
     return <p>No data</p>;
   }

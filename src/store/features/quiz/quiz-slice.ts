@@ -40,7 +40,7 @@ export const quizSlice = createSlice({
     },
     setTestId: (
       state,
-      action: PayloadAction<{ roomId: string; testId: number }>,
+      action: PayloadAction<{ roomId: string; testId: string }>,
     ) => {
       const { roomId, testId } = action.payload;
 
@@ -48,7 +48,7 @@ export const quizSlice = createSlice({
     },
     setTargetQuestionId: (
       state,
-      action: PayloadAction<{ roomId: string; questionId: number | null }>,
+      action: PayloadAction<{ roomId: string; questionId: string | null }>,
     ) => {
       const { roomId, questionId } = action.payload;
 
@@ -69,7 +69,7 @@ export const quizSlice = createSlice({
       state,
       action: PayloadAction<{
         roomId: string;
-        questionId: number;
+        questionId: string;
         answer: string[];
       }>,
     ) => {

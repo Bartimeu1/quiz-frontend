@@ -3,7 +3,7 @@ import { ParticipantType } from './quiz';
 
 export interface CreateRoomRequest {
   usersIds: number[];
-  testId: number;
+  testId: string;
 }
 
 export interface CreateRoomResponse {
@@ -32,7 +32,7 @@ export interface RoomJoinError {
 }
 
 export interface RoomData {
-  testId: number;
+  testId: string;
   users: RoomUserType[];
   results: RoomResultType[];
   participants: ParticipantType[];

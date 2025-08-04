@@ -1,5 +1,5 @@
 export interface QuestionType {
-  id: number;
+  id: string;
   title: string;
   multiSelect: boolean;
   options: string[];
@@ -9,11 +9,11 @@ export interface QuestionType {
 export type PublicQuestionType = Omit<QuestionType, 'correctAnswers'>;
 
 export interface DeleteQuestionRequest {
-  id: number;
+  id: string;
 }
 
 export interface GetTestQuestionsRequest {
-  testId: number;
+  testId: string;
 }
 
 export interface GetTestQuestionsResponse {

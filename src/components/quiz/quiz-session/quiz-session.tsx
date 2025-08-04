@@ -20,7 +20,7 @@ import classNames from 'classnames';
 
 interface QuizSessionProps {
   roomId: string;
-  testId: number;
+  testId: string;
 }
 
 export const QuizSession = ({ roomId, testId }: QuizSessionProps) => {
@@ -32,7 +32,7 @@ export const QuizSession = ({ roomId, testId }: QuizSessionProps) => {
   const targetQuestionId = useSelector(quizTargetQuestionIdSelector(roomId));
 
   const { data: testQuestions } = useGetPublicTestQuestionsQuery({ testId });
-  console.log(testQuestions);
+
   useEffect(() => {
     const firstQuestion = testQuestions?.[INITIAL_QUESTION_INDEX];
 
@@ -61,7 +61,7 @@ export const QuizSession = ({ roomId, testId }: QuizSessionProps) => {
     setSelectedAnswers(isSelected ? [] : [option]);
   };
 
-  const handleSubmitButton = (questionId: number) => () => {
+  const handleSubmitButton = (questionId: string) => () => {
     if (!selectedAnswers.length) {
       setValidationError(noOptionSelectedError);
 
@@ -74,7 +74,7 @@ export const QuizSession = ({ roomId, testId }: QuizSessionProps) => {
 
     const { nextQuestionId, nextQuestion } = getNextQuestion(
       questionId,
-      testQuestions,
+      testQuestions || [],
     );
 
     if (!nextQuestion) {

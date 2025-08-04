@@ -25,7 +25,7 @@ import { toast } from 'react-toastify';
 export const TestsDetailsPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const testId = Number(id);
+  const testId = id || '';
 
   const [isQuestionAddFormVisible, setIsQuestionAddFormVisible] =
     useState(false);
@@ -33,7 +33,7 @@ export const TestsDetailsPage = () => {
   const { data: testDetailsData, isLoading: isTestDetailsLoading } =
     useGetTestDetailsQuery({ id: testId });
   const { data: questionsData, isLoading: isQuestionLoading } =
-    useGetTestQuestionsQuery({ testId: testId });
+    useGetTestQuestionsQuery({ testId });
 
   const [deleteQuestion] = useDeleteQuestionMutation();
   const [deleteTest] = useDeleteTestMutation();
@@ -42,11 +42,11 @@ export const TestsDetailsPage = () => {
     setIsQuestionAddFormVisible((prevState) => !prevState);
   };
 
-  const deleteQuestionButtonClick = (id: number) => () => {
+  const deleteQuestionButtonClick = (id: string) => () => {
     deleteQuestion({ id });
   };
 
-  const deleteTestButtonClick = (id: number) => () => {
+  const deleteTestButtonClick = (id: string) => () => {
     deleteTest({ id })
       .unwrap()
       .then(() => {

@@ -1,5 +1,5 @@
 export interface TestType {
-  id: number;
+  id: string;
   title: string;
   description?: string;
 }
@@ -9,7 +9,7 @@ export interface GetAllTestsResponse {
 }
 
 export interface GetTestDetailsRequest {
-  id: number;
+  id: string;
 }
 
 export interface GetTestDetailsResponse {
@@ -17,7 +17,7 @@ export interface GetTestDetailsResponse {
 }
 
 export interface DeleteTestRequest {
-  id: number;
+  id: string;
 }
 
 export interface CreateTestRequest {

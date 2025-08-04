@@ -6,7 +6,7 @@ export enum QuizStatus {
 }
 
 export interface AnswerType {
-  questionId: number;
+  questionId: string;
   answer: string[];
 }
 
