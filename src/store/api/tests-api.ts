@@ -1,0 +1,56 @@
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { createBaseQueryWithReauth } from './base-query';
+import {
+  GetTestDetailsRequest,
+  GetTestDetailsResponse,
+  GetAllTestsResponse,
+  CreateTestRequest,
+  DeleteTestRequest,
+} from '@root/types/tests';
+
+export const testsApi = createApi({
+  reducerPath: 'testsApi',
+  baseQuery: createBaseQueryWithReauth('http://localhost:3000/tests'),
+  tagTypes: ['tests'],
+  endpoints: (builder) => ({
+    getAllTests: builder.query<GetAllTestsResponse, void>({
+      query: () => ({
+        url: '/',
+        method: 'GET',
+      }),
+      providesTags: ['tests'],
+    }),
+    getTestDetails: builder.query<
+      GetTestDetailsResponse,
+      GetTestDetailsRequest
+    >({
+      query: ({ id }) => ({
+        url: `/${id}`,
+        method: 'GET',
+      }),
+      providesTags: ['tests'],
+    }),
+    createTest: builder.mutation<void, CreateTestRequest>({
+      query: (data) => ({
+        url: '/create-test',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['tests'],
+    }),
+    deleteTest: builder.mutation<void, DeleteTestRequest>({
+      query: ({ id }) => ({
+        url: `/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['tests'],
+    }),
+  }),
+});
+
+export const {
+  useGetAllTestsQuery,
+  useGetTestDetailsQuery,
+  useCreateTestMutation,
+  useDeleteTestMutation,
+} = testsApi;

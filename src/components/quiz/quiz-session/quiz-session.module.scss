@@ -1,0 +1,150 @@
+@use '@styles/variables' as v;
+
+.quizSession {
+  width: 100%;
+  position: relative;
+  padding: 15px 0 5px;
+}
+
+.sessionTopper {
+  position: relative;
+}
+
+.questionTracker {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  font-size: v.$font-size-17;
+  font-family: v.$font-family-secondary;
+  color: v.$color-orange;
+}
+
+.title {
+  text-align: center;
+  font-size: v.$font-size-24;
+  color: v.$color-orange;
+  margin-bottom: 50px;
+}
+
+.optionsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.testOption {
+  padding: 18px 12px;
+  border-radius: v.$border-radius-10;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  & p {
+    margin-bottom: 10px;
+    font-size: v.$font-size-15;
+  }
+
+  & input {
+    padding: 5px;
+  }
+}
+
+.checkbox {
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border: 2px solid v.$color-orange;
+  border-radius: v.$border-radius-4;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  background-color: v.$color-white;
+  margin: 0;
+
+  &:hover {
+    box-shadow: 0 0 0 3px rgba(249, 133, 18, 0.2);
+  }
+
+  &:checked {
+    background-color: v.$color-orange;
+    border-color: v.$color-orange;
+  }
+
+  &:checked::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 3.5px;
+    width: 4px;
+    height: 8px;
+    border: solid v.$color-white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}
+
+.radio {
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border: 2px solid v.$color-orange;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  background-color: v.$color-white;
+  margin: 0;
+
+  &:hover {
+    box-shadow: 0 0 0 3px rgba(249, 133, 18, 0.2);
+  }
+
+  &:checked {
+    background-color: v.$color-orange;
+    border-color: v.$color-orange;
+  }
+
+  &:checked::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: v.$color-white;
+  }
+}
+
+.answerButton {
+  border-radius: v.$border-radius-15;
+  border: 1px solid v.$color-orange;
+  background: v.$color-orange;
+  color: v.$color-white;
+  font-size: v.$font-size-14;
+  padding: 7px 15px;
+  transition: 0.3s all ease-in-out;
+  display: block;
+  margin: 0 auto;
+
+  &:hover {
+    color: v.$color-orange;
+    background: v.$color-white;
+  }
+}
+
+.errorText {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: v.$color-error;
+  font-size: v.$font-size-12;
+}

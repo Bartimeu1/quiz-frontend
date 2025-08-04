@@ -1,0 +1,87 @@
+@use '@styles/variables' as v;
+
+.quizResults {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  text-align: center;
+  font-size: v.$font-size-24;
+  color: v.$color-orange;
+  margin-bottom: 30px;
+}
+
+.leaderboard {
+  width: 100%;
+  border: 1px solid v.$color-orange;
+  border-radius: v.$border-radius-15;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  .topper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background-color: v.$color-orange;
+    color: v.$color-white;
+    font-weight: v.$font-weight-bold;
+    padding: 12px 20px;
+    font-size: v.$font-size-15;
+    text-align: center;
+  }
+}
+
+.resultItem {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  padding: 14px 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & p {
+    margin-left: 3px;
+  }
+}
+
+.answersAmount {
+  text-align: center;
+  font-size: v.$font-size-17;
+  font-family: v.$font-family-secondary;
+  color: v.$color-orange;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+
+  & button {
+    border-radius: v.$border-radius-15;
+    border: 1px solid v.$color-orange;
+    background: v.$color-orange;
+    color: v.$color-white;
+    font-size: v.$font-size-14;
+    padding: 7px 15px;
+    transition: 0.3s all ease-in-out;
+    display: block;
+    margin: 0 auto;
+
+    &:hover {
+      color: v.$color-orange;
+      background: v.$color-white;
+    }
+
+    &:first-of-type {
+      margin-right: 30px;
+    }
+  }
+}

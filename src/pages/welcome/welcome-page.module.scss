@@ -1,0 +1,88 @@
+@use '@styles/variables' as v;
+
+.welcomeText {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: fit-content;
+  justify-content: center;
+
+  & p {
+    font-size: v.$font-size-48;
+    border-right: 4px solid v.$color-orange;
+    line-height: 1.2;
+    padding-right: 5px;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    animation:
+      printed-text 1.5s steps(25, end),
+      flashin-border 0.9s step-start infinite;
+  }
+}
+
+.signIn {
+  animation: fade-in 0.5s ease-out;
+  background-image: url('../../assets/images/welcome-bg.jpg');
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+
+  & p {
+    font-size: v.$font-size-48;
+    color: v.$color-white;
+  }
+
+  & a {
+    border-radius: v.$border-radius-28;
+    font-size: v.$font-size-24;
+    font-weight: v.$font-weight-medium;
+    border: 1px solid v.$color-white;
+    padding: 15px 25px;
+    transition: 0.3s ease-in-out;
+    color: v.$color-white;
+    background: v.$color-black;
+
+    &:hover {
+      background: v.$color-white;
+      color: v.$color-black;
+    }
+  }
+}
+
+@keyframes flashin-border {
+  0% {
+    border-color: v.$color-orange;
+  }
+  50% {
+    border-color: transparent;
+  }
+  100% {
+    border-color: v.$color-orange;
+  }
+}
+
+@keyframes printed-text {
+  from {
+    width: 0%;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}

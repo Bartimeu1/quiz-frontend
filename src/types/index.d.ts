@@ -1,3 +1,5 @@
+/// <reference types="redux-persist/types" />
+
 declare module '*.jpg';
 declare module '*.png';
 declare module '*.webp';

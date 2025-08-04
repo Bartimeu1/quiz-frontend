@@ -1,0 +1,24 @@
+@use '@styles/variables' as v;
+
+.homePage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  padding: 30px;
+  background: v.$color-white;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  border-radius: v.$border-radius-21;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.adminPanel {
+  max-width: 900px;
+}

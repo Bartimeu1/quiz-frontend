@@ -34,7 +34,9 @@
           ["@pages", "./src/pages"],
           ["@middlewares", "./src/middlewares"],
           ["@utils", "./src/utils"],
-          ["@assets", "./src/assets"]
+          ["@assets", "./src/assets"],
+          ["@styles", "./src/styles"],
+          ["@hooks", "./src/hooks"]
         ]
       }
     }

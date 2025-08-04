@@ -1,0 +1,38 @@
+@use '@styles/variables' as v;
+
+.roomPage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  position: relative;
+  padding: 30px;
+  background: v.$color-white;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  border-radius: v.$border-radius-21;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.errorPlate {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & h2 {
+    font-size: v.$font-size-32;
+    font-weight: v.$font-weight-semiBold;
+    color: v.$color-white;
+  }
+}
+
+.loader {
+  flex: 1;
+}
